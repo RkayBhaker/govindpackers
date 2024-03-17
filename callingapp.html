@@ -10,7 +10,7 @@
 </head>
 <body>
     <video id="localVideo" autoplay muted></video>
-    <video id="remoteVideo" autoplay></video>
+    <div id="remoteVideos"></div>
     <button id="callButton">Call</button>
     <button id="hangupButton">Hang Up</button>
 
@@ -18,13 +18,14 @@
     <script>
         const peer = new Peer(); // You can pass options here for server configuration
         let localStream;
+        let remoteStreams = {};
 
         // Display local Peer ID
         peer.on('open', function(id) {
             console.log('My peer ID is: ' + id);
             document.getElementById('localPeerId').textContent = 'Your Peer ID: ' + id;
         });
-        
+
         // Get local audio and video stream
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(function(stream) {
@@ -40,9 +41,7 @@
             const remotePeerId = prompt("Enter friend's Peer ID");
 
             const call = peer.call(remotePeerId, localStream);
-            call.on('stream', function(remoteStream) {
-                document.getElementById('remoteVideo').srcObject = remoteStream;
-            });
+            handleCall(call);
         });
 
         // Answer a call
@@ -50,11 +49,7 @@
             navigator.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then(function(stream) {
                     call.answer(stream);
-                    document.getElementById('localVideo').srcObject = stream;
-
-                    call.on('stream', function(remoteStream) {
-                        document.getElementById('remoteVideo').srcObject = remoteStream;
-                    });
+                    handleCall(call);
                 })
                 .catch(function(error) {
                     console.error('getUserMedia error:', error);
@@ -65,6 +60,23 @@
         document.getElementById('hangupButton').addEventListener('click', function() {
             // Add code to hang up the call
         });
+
+        // Handle call and stream
+        function handleCall(call) {
+            const remoteVideo = document.createElement('video');
+            remoteVideo.autoplay = true;
+
+            call.on('stream', function(remoteStream) {
+                remoteVideo.srcObject = remoteStream;
+                remoteStreams[call.peer] = remoteStream;
+                document.getElementById('remoteVideos').appendChild(remoteVideo);
+            });
+
+            call.on('close', function() {
+                remoteVideo.remove();
+                delete remoteStreams[call.peer];
+            });
+        }
     </script>
 </body>
 </html>
