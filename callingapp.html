@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Call</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <video id="localVideo" autoplay muted></video>
+    <video id="remoteVideo" autoplay></video>
+    <button id="callButton">Call</button>
+    <button id="hangupButton">Hang Up</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script>
+        const peer = new Peer(); // You can pass options here for server configuration
+        let localStream;
+
+        // Display local Peer ID
+        peer.on('open', function(id) {
+            console.log('My peer ID is: ' + id);
+            document.getElementById('localPeerId').textContent = 'Your Peer ID: ' + id;
+        });
+        
+        // Get local audio and video stream
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(function(stream) {
+                localStream = stream;
+                document.getElementById('localVideo').srcObject = stream;
+            })
+            .catch(function(error) {
+                console.error('getUserMedia error:', error);
+            });
+
+        // Make a call
+        document.getElementById('callButton').addEventListener('click', function() {
+            const remotePeerId = prompt("Enter friend's Peer ID");
+
+            const call = peer.call(remotePeerId, localStream);
+            call.on('stream', function(remoteStream) {
+                document.getElementById('remoteVideo').srcObject = remoteStream;
+            });
+        });
+
+        // Answer a call
+        peer.on('call', function(call) {
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then(function(stream) {
+                    call.answer(stream);
+                    document.getElementById('localVideo').srcObject = stream;
+
+                    call.on('stream', function(remoteStream) {
+                        document.getElementById('remoteVideo').srcObject = remoteStream;
+                    });
+                })
+                .catch(function(error) {
+                    console.error('getUserMedia error:', error);
+                });
+        });
+
+        // Hang up call
+        document.getElementById('hangupButton').addEventListener('click', function() {
+            // Add code to hang up the call
+        });
+    </script>
+</body>
+</html>
