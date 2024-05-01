@@ -1001,10 +1001,10 @@
                 // Send email
                 emailjs.send("service_pof719f", "template_g7qg95w", formData)
                     .then(function(response) {
-                        alert("Email sent successfully");
+                        alert("Your Enquiry Request submitted!");
                         console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
                     }, function(error) {
-                        alert("Failed to send email. Error: " + error);
+                        // alert("Failed to send email. Error: " + error);
                         console.log("FAILED", error);
                     });
 
