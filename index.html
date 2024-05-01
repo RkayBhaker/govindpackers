@@ -877,6 +877,167 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" style="display: none;" id="packersMoversEnquireForm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form action="" id="requestEnquiryForm">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Get Free Quotation</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="">
+                <p class="text-center mb-4">Enquiry Form</p>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                <label for="name">Your Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                <label for="email">Your Email</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="tel" class="form-control" id="mob_no" placeholder="Your Contact No.">
+                                <label for="mobile">Your Contact No.</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" id="relocation_date" placeholder="Relocation Date">
+                                <label for="date">Relocation Date</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <select class="form-control" id="MoveType" name="MoveType" required=""><option selected="selected" value="">Move Type</option><option value="Within City">Within City</option><option value="Outside City">Outside City</option> </select>
+                                <label for="MoveType">Move Type</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <select class="form-control" id="MoveSize" name="MoveSize" required=""><option selected="selected" value="">Move Size</option><option value="Few items">Few items</option><option value="1 BHK">1 BHK</option><option value="2 BHK">2 BHK</option><option value="3 BHK">3 BHK</option><option value="3+ BHK">3+ BHK</option><option value="Complete Home + Vehicle">Complete Home + Vehicle</option><option value="Office">Office</option><option value="Vehicles">Vehicles</option><option value="Single Item">Single Item</option><option value="Others">Others</option> </select>
+                                <label for="MoveSize">Move Size</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input class="form-control" id="relocation_from" name="relocation_from" placeholder="Relocation From" required="" type="text" />
+                                <label for="relocation_from">Relocation From</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input class="form-control" id="relocation_to" name="relocation_to" placeholder="Relocation To" required="" type="text" />
+                                <label for="relocation_to">Relocation To</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                <label for="subject">Subject</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
+                                <label for="message">Message</label>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id="requestEnquiry" class="btn btn-primary">Submit Request</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $('#requestEnquiry').click(function(){
+            // console.log('btn clicked');
+            emailjs.init("PJUKdTSGWWSkMFyj6");
+            sendEmail();
+            // Function to send email
+            function sendEmail() {
+                // console.log('fn called');
+
+                var complete_message = `
+                Name : ${document.getElementById('name').value}\n
+                Email : ${document.getElementById('email').value}\n
+                Mobile : ${document.getElementById('mob_no').value}\n
+                relocation_date : ${document.getElementById('relocation_date').value}\n
+                MoveType : ${document.getElementById('MoveType').value}\n
+                MoveSize : ${document.getElementById('MoveSize').value}\n
+                relocation_from : ${document.getElementById('relocation_from').value}\n
+                relocation_to : ${document.getElementById('relocation_to').value}\n
+                Message : ${document.getElementById('message').value}\n`;
+
+                // Get form data
+                var formData = {
+                    to: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: complete_message
+                };
+
+                // Send email
+                emailjs.send("service_pof719f", "template_g7qg95w", formData)
+                    .then(function(response) {
+                        alert("Email sent successfully");
+                        console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
+                    }, function(error) {
+                        alert("Failed to send email. Error: " + error);
+                        console.log("FAILED", error);
+                    });
+
+                return false;
+            }
+
+            // Attach sendEmail function to form submission
+            // document.getElementById('requestEnquiryForm').addEventListener('submit', sendEmail);
+        });
+    });
+    function sendEmail() {
+        Email.send({
+            Host: "smtp.gmail.com",
+            Username: "sender@email_address.com",
+            Password: "Enter your password",
+            To: 'receiver@email_address.com',
+            From: "sender@email_address.com",
+            Subject: "Sending Email using javascript",
+            Body: "Well that was easy!!",
+        })
+            .then(function (message) {
+                alert("mail sent successfully")
+            });
+    }
+
+    const myTimeout = setTimeout(packersMoversEnquireForm, 3000);
+
+    function packersMoversEnquireForm() {
+        clearTimeout(myTimeout);
+        console.log('time out');
+        document.getElementById('packersMoversEnquireForm').click();
+    }
+  </script>
 </body>
 
 </html>
