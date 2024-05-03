@@ -1,6 +1,28 @@
 (function ($) {
     "use strict";
 
+    $('#logo2').hide();
+
+    // 
+    let header = document.getElementById('header');
+
+    document.addEventListener('scroll', function() {
+        // Get scroll position
+        let scrollPosition = window.pageYOffset;
+
+        console.log(scrollPosition);
+
+        // Calculate whether the scroll it 350px or not then set the opacity to face the header out
+        if (scrollPosition >= 80) {
+            $('#logo2').show();
+            $('#logo1').hide();
+        } else {
+            $('#logo1').show();
+            $('#logo2').hide();
+        }
+
+    });
+// 
     // Spinner
     var spinner = function () {
         setTimeout(function () {
