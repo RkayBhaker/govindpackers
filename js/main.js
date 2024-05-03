@@ -111,6 +111,24 @@
 
         portfolioIsotope.isotope({filter: $(this).data('filter')});
     });
+
+    window.onload = function() {
+        // Function to check screen size and change image source accordingly
+        function checkScreenSize() {
+            var image = document.getElementById('logo1');
+            if (window.innerWidth <= 991) {
+                image.src = 'img/govind-high-resolution-logo-black-transparent.png'; // Change the source to your small image
+            } else {
+                image.src = 'img/govind-high-resolution-logo-transparent.png'; // Change the source to your large image
+            }
+        }
+    
+        // Call the function initially when the page loads
+        checkScreenSize();
+    
+        // Call the function whenever the window is resized
+        window.addEventListener('resize', checkScreenSize);
+    };
     
 })(jQuery);
 
