@@ -10,7 +10,7 @@
         // Get scroll position
         let scrollPosition = window.pageYOffset;
 
-        console.log(scrollPosition);
+        // console.log(scrollPosition);
 
         // Calculate whether the scroll it 350px or not then set the opacity to face the header out
         if (scrollPosition >= 80) {
@@ -211,7 +211,7 @@
 
     function packersMoversEnquireForm() {
         clearTimeout(myTimeout);
-        // console.log('time out');
+        console.log('time out');
         document.getElementById('packersMoversEnquireForm').click();
     }
 
