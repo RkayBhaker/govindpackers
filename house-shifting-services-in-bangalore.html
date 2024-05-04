@@ -977,6 +977,120 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" style="display: none;" id="packersMoversEnquireForm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" style="display: none;" id="packersMoversEnquireForm2" data-bs-toggle="modal" data-bs-target="#successForm">
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="" id="requestEnquiryForm" class="needs-validation">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Get Free Quotation</h1>
+        <button type="button" class="btn-close btn_close_main_modal" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="">
+              <p class="text-center mb-4">Enquiry Form</p>
+                  <div class="row g-3">
+                      <div class="col-md-6">
+                          <div class="form-floating">
+                              <input type="text" class="form-control" required id="name" placeholder="Your Name">
+                              <label for="name">Your Name</label>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-floating">
+                              <input type="email" class="form-control" required id="email" placeholder="Your Email">
+                              <label for="email">Your Email</label>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-floating">
+                              <input type="tel" class="form-control"  required id="mob_no" placeholder="Your Contact No.">
+                              <label for="mobile">Your Contact No.</label>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-floating">
+                              <input type="date" class="form-control" required id="relocation_date" placeholder="Relocation Date">
+                              <label for="date">Relocation Date</label>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-floating">
+                              <select class="form-control" id="MoveType" required name="MoveType" required=""><option selected="selected" value="">Move Type</option><option value="Within City">Within City</option><option value="Outside City">Outside City</option> </select>
+                              <label for="MoveType">Move Type</label>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-floating">
+                              <select class="form-control" id="MoveSize"  required name="MoveSize" required=""><option selected="selected" value="">Move Size</option><option value="Few items">Few items</option><option value="1 BHK">1 BHK</option><option value="2 BHK">2 BHK</option><option value="3 BHK">3 BHK</option><option value="3+ BHK">3+ BHK</option><option value="Complete Home + Vehicle">Complete Home + Vehicle</option><option value="Office">Office</option><option value="Vehicles">Vehicles</option><option value="Single Item">Single Item</option><option value="Others">Others</option> </select>
+                              <label for="MoveSize">Move Size</label>
+                          </div>
+                      </div>
+                      
+                      <div class="col-md-6">
+                          <div class="form-floating">
+                              <input class="form-control" id="relocation_from" required name="relocation_from" placeholder="Relocation From" required="" type="text" />
+                              <label for="relocation_from">Relocation From</label>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-floating">
+                              <input class="form-control" id="relocation_to" required name="relocation_to" placeholder="Relocation To" required="" type="text" />
+                              <label for="relocation_to">Relocation To</label>
+                          </div>
+                      </div>
+                      <div class="col-12">
+                          <div class="form-floating">
+                              <input type="text" class="form-control" id="subject" required placeholder="Subject">
+                              <label for="subject">Subject</label>
+                          </div>
+                      </div>
+                      <div class="col-12">
+                          <div class="form-floating">
+                              <textarea class="form-control" required placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
+                              <label for="message">Message</label>
+                          </div>
+                      </div>
+                  </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="requestEnquiry" class="btn btn-primary">Submit Request</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="successForm"  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog dailog-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+           <center><img src="img/success.png" alt="Best Packers Movers Icon" width="17%">
+           <br><h3>Your Enquiry Request submitted.</h3 <br>
+           Our team will contact you soon!</center>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 
 </html>   

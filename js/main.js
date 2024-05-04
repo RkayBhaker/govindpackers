@@ -129,6 +129,92 @@
         // Call the function whenever the window is resized
         window.addEventListener('resize', checkScreenSize);
     };
+
+        $('#requestEnquiry').click(function(){
+
+            (function() {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.querySelectorAll('.needs-validation')
+
+                // console.log(forms);
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                    .forEach(function(form) {
+                        // console.log(form);
+                        
+
+                            if (!form.checkValidity()) {
+                                // console.log('true');
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+                            else
+                            {
+                                emailjs.init("PJUKdTSGWWSkMFyj6");
+                                sendEmail();
+                            };
+
+                            form.classList.add('was-validated')
+                        
+                    })
+            })();
+
+            // console.log('btn clicked');
+            
+            
+            // Function to send email
+            function sendEmail() {
+                // console.log('fn called');
+
+                var complete_message = `
+                Name : ${document.getElementById('name').value}\n
+                Email : ${document.getElementById('email').value}\n
+                Mobile : ${document.getElementById('mob_no').value}\n
+                relocation_date : ${document.getElementById('relocation_date').value}\n
+                MoveType : ${document.getElementById('MoveType').value}\n
+                MoveSize : ${document.getElementById('MoveSize').value}\n
+                relocation_from : ${document.getElementById('relocation_from').value}\n
+                relocation_to : ${document.getElementById('relocation_to').value}\n
+                Message : ${document.getElementById('message').value}\n`;
+
+                // Get form data
+                var formData = {
+                    to: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: complete_message
+                };
+
+                // Send email
+                emailjs.send("service_pof719f", "template_g7qg95w", formData)
+                    .then(function(response) {
+                        // alert("Your Enquiry Request submitted!");
+                        $('.btn_close_main_modal').click();
+                        $('#packersMoversEnquireForm2').click();
+                        
+                        console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
+                    }, function(error) {
+                        // alert("Failed to send email. Error: " + error);
+                        console.log("FAILED", error);
+                    });
+
+                return false;
+            }
+
+            // Attach sendEmail function to form submission
+            // document.getElementById('requestEnquiryForm').addEventListener('submit', sendEmail);
+        });
+
+    const myTimeout = setTimeout(packersMoversEnquireForm, 3000);
+
+    function packersMoversEnquireForm() {
+        clearTimeout(myTimeout);
+        // console.log('time out');
+        document.getElementById('packersMoversEnquireForm').click();
+    }
+
     
 })(jQuery);
 
